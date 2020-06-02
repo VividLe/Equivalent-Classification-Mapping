@@ -14,8 +14,8 @@ def train(cfg, data_loader, model, optimizer, criterion):
 
     loss_record_cls_pre = 0
     loss_record_cls_post = 0
-    loss_record_cls_consistency = 0
-    loss_record_agg_consistency = 0
+    loss_record_cls_to_cls_consistency = 0
+    loss_record_agg_to_cls_consistency = 0
 
     for feat_spa, feat_tem, cls_label in data_loader:
         feature = torch.cat([feat_spa, feat_tem], dim=1)
@@ -23,9 +23,9 @@ def train(cfg, data_loader, model, optimizer, criterion):
         cls_label = cls_label.type_as(dtype)
 
         score_pre, score_post, score_agg = model(feature, groups=3, is_train=True, cls_label=cls_label)
-        loss_cls_pre, loss_cls_post, loss_cls_consistency, loss_agg_consistency = criterion(cfg, score_pre, score_post, cls_label, score_agg)
+        loss_cls_pre, loss_cls_post, loss_cls_to_cls_consistency, loss_agg_to_cls_consistency = criterion(cfg, score_pre, score_post, cls_label, score_agg)
         loss = cfg.TRAIN.LOSS_CAS_COEF * loss_cls_pre + cfg.TRAIN.LOSS_CAM_COEF * loss_cls_post + \
-               cfg.TRAIN.LOSS_CONSISTENCY_COEF * loss_cls_consistency + cfg.TRAIN.C_LOSS_CAM_FG_INV * loss_agg_consistency
+               cfg.TRAIN.LOSS_CONSISTENCY_COEF * loss_cls_to_cls_consistency + cfg.TRAIN.C_LOSS_CAM_FG_INV * loss_agg_to_cls_consistency
 
         optimizer.zero_grad()
         loss.backward()
@@ -33,15 +33,15 @@ def train(cfg, data_loader, model, optimizer, criterion):
 
         loss_record_cls_pre += loss_cls_pre.item()
         loss_record_cls_post += loss_cls_post.item()
-        loss_record_cls_consistency += loss_cls_consistency.item()
-        loss_record_agg_consistency += loss_agg_consistency.item()
+        loss_record_cls_to_cls_consistency += loss_cls_to_cls_consistency.item()
+        loss_record_agg_to_cls_consistency += loss_agg_to_cls_consistency.item()
 
     loss_cls_pre = loss_record_cls_pre / len(data_loader)
     loss_cls_post = loss_record_cls_post / len(data_loader)
-    loss_cls_consistency = loss_record_cls_consistency / len(data_loader)
-    loss_agg_consistency = loss_record_agg_consistency / len(data_loader)
+    loss_cls_to_cls_consistency = loss_record_cls_to_cls_consistency / len(data_loader)
+    loss_agg_to_cls_consistency = loss_record_agg_to_cls_consistency / len(data_loader)
 
-    return loss_cls_pre, loss_cls_post, loss_cls_consistency, loss_agg_consistency
+    return loss_cls_pre, loss_cls_post, loss_cls_to_cls_consistency, loss_agg_to_cls_consistency
 
 
 def evaluate(cfg, data_loader, model, epoch):
