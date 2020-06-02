@@ -10,7 +10,7 @@ BASIC:
 
 DATASET:
   NAME: "ActivityNet1.2"
-  DATA_DIR: 'data/ActivityNet1.2/I3D_resize100'
+  DATA_DIR: 'data/ActivityNet1.2'
   TRAIN_SPLIT: 'training'
   VAL_SPLIT: 'validation'
   CLS_NUM: 100
@@ -31,7 +31,7 @@ TRAIN:
   LR_DECAY_EPOCHS: []
   LR_DECAY_FACTOR: 0.1
   OUTPUT_DIR: 'output/anet12/anet12_run1'
-  CHECKPOINT_FILE: 'checkpoints/ActivityNet1.2'
+  CHECKPOINT_FILE: 'checkpoints/ActivityNet1.2_best'
   LOSS_CAS_COEF: 1
   LOSS_CAM_COEF: 1
   LOSS_CONSISTENCY_COEF: 0.05
