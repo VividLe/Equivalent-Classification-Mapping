@@ -22,16 +22,16 @@ class NetLoss(nn.Module):
     def forward(self, cfg, score_pre, score_post, labels, score_agg):
         loss_pre = self._cls_loss(score_pre, labels)
         loss_post = self._cls_loss(score_post, labels)
-        loss_cls_consistency = self.mseloss(score_pre, score_post)
+        loss_cls_to_cls_consistency = self.mseloss(score_pre, score_post)
 
-        loss_agg_consistency = 0
+        loss_agg_to_cls_consistency = 0
         for b in range(labels.shape[0]):
             # select scores for present categories
             gt_cls_idx = torch.where(labels[b] == 1)[0]
             score_agg_action_bg = score_agg[b, torch.cat((gt_cls_idx, gt_cls_idx + cfg.DATASET.CLS_NUM))]
 
             labels_agg = torch.cat((torch.ones(gt_cls_idx.shape[0]).cuda(), torch.zeros(gt_cls_idx.shape[0]).cuda()))
-            loss_agg_consistency += self.bceloss(score_agg_action_bg, labels_agg)
-        loss_agg_consistency = loss_agg_consistency / labels.shape[0]
+            loss_agg_to_cls_consistency += self.bceloss(score_agg_action_bg, labels_agg)
+        loss_agg_to_cls_consistency = loss_agg_to_cls_consistency / labels.shape[0]
 
-        return loss_pre, loss_post, loss_cls_consistency, loss_agg_consistency
+        return loss_pre, loss_post, loss_cls_to_cls_consistency, loss_agg_to_cls_consistency
