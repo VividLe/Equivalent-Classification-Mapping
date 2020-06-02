@@ -100,17 +100,13 @@ def main():
 
     for epoch in range(1, cfg.TRAIN.EPOCH_NUM+1):
         print('Epoch: %d:' % epoch)
-        loss_cls_pre, loss_cls_post, loss_cls_consistency, loss_agg_consistency = \
+        loss_cls_pre, loss_cls_post, loss_cls_to_cls_consistency, loss_agg_to_cls_consistency = \
             train(cfg, train_loader, model, optimizer, criterion)
 
-        writer.add_scalar('train_loss/pre_classification', loss_cls_pre, epoch)
-        writer.add_scalar('train_loss/post_classification', loss_cls_post, epoch)
-        writer.add_scalar('train_loss/classification_consistency', loss_cls_consistency, epoch)
-        writer.add_scalar('train_loss/aggregation_consistency', loss_agg_consistency, epoch)
         if cfg.BASIC.VERBOSE:
             print('loss: pre-classification branch %f, post-classification branch %f,'
-                  'classification consistency %f, aggregation consistency %f'
-                  % (loss_cls_pre, loss_cls_post, loss_cls_consistency, loss_agg_consistency))
+                  'classification_to_classification_consistency %f, aggregation_to_classification_consistency %f'
+                  % (loss_cls_pre, loss_cls_post, loss_cls_to_cls_consistency, loss_agg_to_cls_consistency))
 
         if epoch in cfg.TRAIN.LR_DECAY_EPOCHS:
             decay_lr(optimizer, factor=cfg.TRAIN.LR_DECAY_FACTOR)

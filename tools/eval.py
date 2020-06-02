@@ -15,7 +15,7 @@ import _init_paths
 from config.default import config as cfg
 from config.default import update_config
 import pprint
-from models.network import LocNet
+from models.network import ECMNet
 from dataset.dataset import ECMDataset
 from core.train_eval import train, evaluate
 from core.functions import prepare_env, evaluate_mAP
@@ -24,7 +24,7 @@ from core.functions import prepare_env, evaluate_mAP
 def args_parser():
     parser = argparse.ArgumentParser(description='weakly supervised action localization baseline')
     parser.add_argument('-dataset', help='Choose dataset to run', default='THUMOS14', choices=['THUMOS14', 'ActivityNet1.2', 'ActivityNet1.3'])
-    parser.add_argument('-weight_file', help='Path of weight_file', default='../weight_file/thumos14_checkpoint_best_cas_epoch125_iou0.5__0.2928.pth')
+    parser.add_argument('-weight_file', help='Path of weight_file', default='../checkpoints/THUMOS14_best.pth')
     args = parser.parse_args()
     return args
 
@@ -56,7 +56,7 @@ def main():
     val_loader = DataLoader(val_dset, batch_size=cfg.TEST.BATCH_SIZE, shuffle=False,
                             num_workers=cfg.BASIC.WORKERS, pin_memory=cfg.BASIC.PIN_MEMORY)
 
-    model = LocNet(cfg)
+    model = ECMNet(cfg)
     model.cuda()
 
     weight_file = args.weight_file
@@ -67,7 +67,11 @@ def main():
     model = load_weights(model, weight_file)
 
     output_json_file_cas = evaluate(cfg, val_loader, model, epoch)
-    evaluate_mAP(cfg, output_json_file_cas, os.path.join(cfg.BASIC.ROOT_DIR, cfg.DATASET.GT_FILE), cfg.BASIC.VERBOSE)
+    mAP, average_mAP = evaluate_mAP(cfg, output_json_file_cas, os.path.join(cfg.BASIC.ROOT_DIR, cfg.DATASET.GT_FILE))
+
+    print("average_mAP: {:.4f}".format(average_mAP))
+    for i in range(len(cfg.TEST.IOU_TH)):
+        print("mAP@{:.2f}: {:.4f}".format(cfg.TEST.IOU_TH[i], mAP[i]))
 
 
 if __name__ == '__main__':
