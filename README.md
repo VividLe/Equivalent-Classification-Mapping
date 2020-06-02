@@ -18,57 +18,61 @@ Before running the code, please activate this conda environment.
 
 ## Data Preparation
 
-Download Thumos14, ActivityNet1.2 and ActivityNet1.3  features from [Google Drive](https://drive.google.com/open?id=1BSmorgGC38PDCpwCHofnKdI6JQzcwiAH).
-	
+Download Thumos14 from [Google Drive](https://drive.google.com/drive/folders/1GJi4yZROTNURo1j-TJlUfs0MBsITJ0Ug?usp=sharing).
+
+Download ActivityNet1.2 from [Google Drive](https://drive.google.com/drive/folders/17wkaYBSbBD-80OhckLHJlUnvMDwgXyt4?usp=sharing).
+
+Download ActivityNet1.3  features from [Google Drive](https://drive.google.com/drive/folders/1klht1i1HfNoxiss2UWBqdIznkeQAbxvc).	
+
 	Please ensure the data structure is as below
 
 ~~~~
 ├── data
    └── Thumos14
        ├── val
-       ├── video_validation_0000051.npz
-       ├── video_validation_0000052.npz
-       └── ...
+           ├── video_validation_0000051.npz
+           ├── video_validation_0000052.npz
+           └── ...
        └── test
-       ├── video_test_0000004.npz
-       ├── video_test_0000006.npz
-       └── ...
+           ├── video_test_0000004.npz
+           ├── video_test_0000006.npz
+           └── ...
    └── ActivityNet1.2
        ├── training
-       ├── v___dXUJsj3yo.npz
-       ├── v___wPHayoMgw.npz
-       └── ...
+           ├── v___dXUJsj3yo.npz
+           ├── v___wPHayoMgw.npz
+           └── ...
        └── validation
-       ├── v__3I4nm2zF5Y.npz
-       ├── v__8KsVaJLOYI.npz
-       └── ...
+           ├── v__3I4nm2zF5Y.npz
+           ├── v__8KsVaJLOYI.npz
+           └── ...
    └── ActivityNet1.3
        ├── training
-       ├── v___c8enCfzqw.npz
-       ├── v___dXUJsj3yo.npz
-       └── ...
+           ├── v___c8enCfzqw.npz
+           ├── v___dXUJsj3yo.npz
+           └── ...
        └── validation
-       ├── v__1vYKA7mNLI.npz
-       ├── v__3I4nm2zF5Y.npz
-       └── ...
+           ├── v__1vYKA7mNLI.npz
+           ├── v__3I4nm2zF5Y.npz
+           └── ...
      
 ~~~~
 
 ## Training
 
-To train the ECM model on THUMOS14 dataset, please first edit "/experiments/THUMOS14.yaml", set "ROOT_DIR" as the full path to this project. Then run this command:
+To train the ECM model on THUMOS14 dataset, please first run this command:
 
 ```train
 cd ./tools
 python train.py -dataset THUMOS14
 ```
-To train the ECM model on ActivityNet v1.2 dataset, please first edit "/experiments/ActivityNet1.2.yaml", set "ROOT_DIR" as the full path to this project. Then run this command:
+To train the ECM model on ActivityNet v1.2 dataset, please run this command:
 
 ```train
 cd ./tools
 python train.py -dataset ActivityNet1.2
 ```
-To train the ECM model on ActivityNet v1.3 dataset, please first edit "/experiments/ActivityNet1.3.yaml", set "ROOT_DIR" as the full path to this project. Then run this command:
+To train the ECM model on ActivityNet v1.3 dataset, please run this command:
 
 ```train
 cd ./tools
@@ -99,9 +103,9 @@ python eval.py -dataset ActivityNet1.3 -weight_file ../checkpoints/ActivityNet1.
 
 You can download pretrained models here:
 
-- [THUMOS14_best.pth](https://drive.google.com/file/d/1GMSa1K_CmBJ3K1ODy7Qs6iIsHosJ6-eZ/view?usp=sharing) trained on THUMOS14 using parameters same as "./experiments/THUMOS14.yaml". 
-- [ActivityNet1.2_best.pth](https://drive.google.com/file/d/1DZAS0tYgF-gV204L3_i3zhwwkifj2OJO/view?usp=sharing) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.2.yaml". 
-- [ActivityNet1.3_best.pth](https://drive.google.com/file/d/1iFTRrd36w51vtxXuy_HaRa_3iLc_wlln/view?usp=sharing) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.3.yaml". 
+- [THUMOS14_best.pth](https://drive.google.com/file/d/1JHXl0M62X1y-SphEQQB2qttl3_3TQG2f/view?usp=sharing) trained on THUMOS14 using parameters same as "./experiments/THUMOS14.yaml". 
+- [ActivityNet1.2_best.pth](https://drive.google.com/file/d/1kDMT-0zvDbsoocaqWso9lvYzJK1qWVRX/view?usp=sharing) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.2.yaml". 
+- [ActivityNet1.3_best.pth](https://drive.google.com/file/d/1BleOkd5Zw5V_3pY0bE2v4i-nyiMhB9Xd/view?usp=sharing) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.3.yaml". 
 
 
 ## Results
@@ -112,7 +116,7 @@ Our model achieves the following performance on :
 
 | threshold | 0.1   | 0.2   | 0.3   | 0.4   | 0.5   | 0.6   | 0.7   | 0.8  | 0.9  |
 | --------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ---- | ---- |
-|    mAP    | 61.07 | 53.94 | 45.61 | 37.48 | 29.28 | 19.83 | 10.98 | 3.74 | 0.46 |
+| mAP       | 62.61 | 55.05 | 46.47 | 38.19 | 29.13 | 19.50 | 10.88 | 3.80 | 0.42 |
 
 ### [ActivityNet v1.2](http://activity-net.org/)
 
