@@ -130,6 +130,7 @@ Our model achieves the following performance on :
 | mAP       | 23.48       | 36.68 | 34.08 | 31.52 | 29.01 | 26.49 | 23.56 | 20.04 | 16.08 | 11.42 | 5.92 |
 
 ## Citation
+```BibTeX
 @article{zhao2022equivalent,
   title={Equivalent classification mapping for weakly supervised temporal action localization},
   author={Zhao, Tao and Han, Junwei and Yang, Le and Zhang, Dingwen},
@@ -137,3 +138,4 @@ Our model achieves the following performance on :
   year={2022},
   publisher={IEEE}
 }
+```
