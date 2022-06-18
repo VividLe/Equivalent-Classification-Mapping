@@ -1,9 +1,8 @@
 # Equivalent Classification Mapping for Weakly Supervised Temporal Action Localization
 
-This repository is the official implementation of [Equivalent Classification Mapping for Weakly Supervised Temporal Action Localization](https://arxiv.org/abs/2030.12345). 
-In this work, we study the weakly supervised temporal action localization task. The existing methods can be categorized into two localization-by-classification pipelines, i.e., the pre-classification pipeline and the post-classification pipeline. The pre-classification pipeline (see (a) in figure) first performs classification on each video snippet and then aggregate the snippet-level classification scores to obtain the video-level classification score, while the post-classification pipeline (see (b) in figure) aggregates the snippet-level features first and then predicts the video-level classification score based on the aggregated feature. Although the classifiers in these two pipelines are used in different ways, the role they play is exactly the same---to classify the given features to identify the corresponding action categories. That is, an ideal classifier can make both pipelines work. This inspires us to simultaneously learn these two pipelines in a unified framework to obtain an effective classifier. Specifically, in the proposed learning framework (see (c) in figure), we implement two parallel model streams to model two localization-by-classification pipelines, respectively, and make the two network streams share with the same classifier, thus achieving the novel Equivalent Classification Mapping (ECM) mechanism. Considering that an ideal classifier would make the classification results of the two network streams be identical and make the frame-level classification scores obtained from the pre-classification pipeline and the feature aggregation weights in the post-classification pipeline be consistent, we further introduce an equivalent classification loss and an equivalent weight transition module to endow the proposed learning framework with such properties. Comprehensive experiments are carried on three benchmarks which demonstrate our proposed ECM achieves superior performance over the other state-of-the-art methods..
+This repository is the official implementation of ECM. In this work, we study the weakly supervised temporal action localization and develop the Equivalent Classification Mapping (ECM) mechanism. Paper from [arXiv](https://arxiv.org/abs/2008.07728) or [IEEE](https://ieeexplore.ieee.org/abstract/document/9785717).
 
-![Illustrating the architecture of the proposed ECM](ecm.png)
+![Illustrating the architecture of the proposed ECM](ECM.png)
 
 
 ## Requirements
@@ -18,11 +17,11 @@ Before running the code, please activate this conda environment.
 
 ## Data Preparation
 
-Download Thumos14 from [Google Drive](https://drive.google.com/drive/folders/1GJi4yZROTNURo1j-TJlUfs0MBsITJ0Ug?usp=sharing).
+Download Thumos14 from [baiduyun](https://pan.baidu.com/s/1xlK854LWpl8K5CT_S4tc1g ) (code:ecmd).
 
-Download ActivityNet1.2 from [Google Drive](https://drive.google.com/drive/folders/17wkaYBSbBD-80OhckLHJlUnvMDwgXyt4?usp=sharing).
+Download ActivityNet1.2 from [baiduyun](https://pan.baidu.com/s/1xlK854LWpl8K5CT_S4tc1g ) (code:ecmd).
 
-Download ActivityNet1.3  features from [Google Drive](https://drive.google.com/drive/folders/1klht1i1HfNoxiss2UWBqdIznkeQAbxvc).	
+Download ActivityNet1.3  features from [baiduyun](https://pan.baidu.com/s/1xlK854LWpl8K5CT_S4tc1g ) (code:ecmd).	
 
 	Please ensure the data structure is as below
 
@@ -101,11 +100,11 @@ python eval.py -dataset ActivityNet1.3 -weight_file ../checkpoints/ActivityNet1.
 
 ## Pre-trained Models
 
-You can download pretrained models here:
+You can download pre-trained models here:
 
-- [THUMOS14_best.pth](https://drive.google.com/file/d/1JHXl0M62X1y-SphEQQB2qttl3_3TQG2f/view?usp=sharing) trained on THUMOS14 using parameters same as "./experiments/THUMOS14.yaml". 
-- [ActivityNet1.2_best.pth](https://drive.google.com/file/d/1kDMT-0zvDbsoocaqWso9lvYzJK1qWVRX/view?usp=sharing) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.2.yaml". 
-- [ActivityNet1.3_best.pth](https://drive.google.com/file/d/1BleOkd5Zw5V_3pY0bE2v4i-nyiMhB9Xd/view?usp=sharing) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.3.yaml". 
+- THUMOS14_best.pth [baiduyun](https://pan.baidu.com/s/1xlK854LWpl8K5CT_S4tc1g ) (code:ecmd) trained on THUMOS14 using parameters same as "./experiments/THUMOS14.yaml". 
+- ActivityNet1.2_best.pth [baiduyun](https://pan.baidu.com/s/1xlK854LWpl8K5CT_S4tc1g ) (code:ecmd) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.2.yaml". 
+- ActivityNet1.3_best.pth [baiduyun](https://pan.baidu.com/s/1xlK854LWpl8K5CT_S4tc1g ) (code:ecmd) trained on ActivityNet v1.2 using parameters same as "./experiments/ActivityNet1.3.yaml". 
 
 
 ## Results
@@ -130,3 +129,11 @@ Our model achieves the following performance on :
 | --------- | ----------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ---- |
 | mAP       | 23.48       | 36.68 | 34.08 | 31.52 | 29.01 | 26.49 | 23.56 | 20.04 | 16.08 | 11.42 | 5.92 |
 
+## Citation
+@article{zhao2022equivalent,
+  title={Equivalent classification mapping for weakly supervised temporal action localization},
+  author={Zhao, Tao and Han, Junwei and Yang, Le and Zhang, Dingwen},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2022},
+  publisher={IEEE}
+}
