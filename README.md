@@ -131,9 +131,14 @@ Our model achieves the following performance on :
 
 ## Citation
 @article{zhao2022equivalent,
+
   title={Equivalent classification mapping for weakly supervised temporal action localization},
+  
   author={Zhao, Tao and Han, Junwei and Yang, Le and Zhang, Dingwen},
+  
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  
   year={2022},
+  
   publisher={IEEE}
 }
